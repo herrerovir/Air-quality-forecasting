@@ -1,0 +1,6 @@
+LSTM trained model results:
+---------------------------------------------------------------------
+Mean Absolute Error (MAE): 0.07755365744971837
+Mean Squared Error (MSE): 0.01029119569217288
+Root Mean Squared Error (RMSE): 0.10144553066632793
+R-squared (R²): 0.7845865806903947
