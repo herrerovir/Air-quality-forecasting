@@ -1,0 +1,9 @@
+jupyterlab==4.2.4
+jupyter_server==2.14.2
+jupyter_client==7.4.9
+numpy==1.24.3
+pandas==2.2.2
+scikit-learn==1.6.1
+seaborn==0.13.2
+statsmodels==0.14.4
+tensorflow==2.18.0
