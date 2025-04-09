@@ -13,6 +13,7 @@ Elegí este conjunto de datos porque es relevante para mi formación como ingeni
 - [Dependencias](#dependencias)
 - [Instalar dependencias](#instalar)
 - [Como ejecutar el projecto](#como-ejecutar-el-proyecto)
+- [Documentacion](#documentación)
 - [Dataset](#dataset)
 - [Modelado](#modelado)
 - [Resultados](#resultados)
@@ -25,6 +26,16 @@ VHC-TestDataScience-2/
 ├── data/                               # Conjunto de datos
 │   ├── raw/                            # Datos originales
 │   ├── processed/                      # Datos limpios
+
+├── docs/                               # Documentacion
+│   ├── index.md                        # Indice
+|   ├── data-cleaning.md                # Limpieza
+|   ├── data-exploration                # Exploracion
+|   ├── forecasting.md                  # Predicciones
+|   ├── modeling.md                     # Modelado
+|   ├── pre-processing.md               # Preprocesamiento
+|   ├── results.md                      # Resultados
+|   ├── sesonality.md                   # Estacionalidad
 │
 ├── models/                             # Modelos entrenados
 │   ├── LSTM-model-air-quality.keras    # Modelo guardado en formato keras
@@ -39,6 +50,7 @@ VHC-TestDataScience-2/
 │
 ├── requirements.txt                    # Dependencias del proyecto
 └── README.md                           # Documentación del proyecto
+└── mkdocs.yml                          # Documentación del proyecto en mkdocs
 ```
 
 ## Estructura del notebook
@@ -88,6 +100,10 @@ pip install -r requirements.txt
 3. Abre el notebook:
    ```{shell}
    jupyter notebook
+
+## Documentacion
+
+Toda la documentación del proyecto en mkdocs se encuentra alojada en la siguiente dirección [documentación](https://herrerovir.github.io/VHC-TestDataScience-2/)
 
 ## Dataset
 
