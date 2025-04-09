@@ -1,0 +1,11 @@
+site_name: VHC-TestDataScience-1
+
+nav:
+  - Home: index.md
+  - Data Cleaning: data-cleaning.md
+  - Sesonality: sesonality.md
+  - Data Exploration: data-exploration.md
+  - Pre-processing: pre-processing.md
+  - LSTM Modeling: modeling.md
+  - Forecasting: forecasting.md
+  - Results: results.md
