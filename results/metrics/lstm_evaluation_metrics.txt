@@ -1,0 +1,6 @@
+----------------------------------------
+LSTM Model Evaluation Metrics:
+Mean Absolute Error (MAE): 14.4672
+Mean Squared Error (MSE): 377.8881
+R² Score: 0.7649
+----------------------------------------
