@@ -1,135 +1,125 @@
-# Test 2: Time Series Regression - Air Quality Forecasting
+# 🍃💚 Air Quality Forecasting
 
-En este proyecto, se lleva a cabo un proceso de machine learning de principio a fin, con el objetivo de predecir la calidad del aire usando datos de series temporales. En el cuaderno Jupyter se detalla paso a paso todas las decisiones tomadas desde la limpieza de los datos hasta el desarrollo y evaluación del modelo.
+This project walks through a full machine learning workflow to forecast NO₂ levels in air quality using time series data. It covers everything from data cleaning and preprocessing to model selection, evaluation, and predictions. The final model, an LSTM (Long Short-Term Memory), accurately forecasts future NO₂ concentrations, providing valuable insights for pollution control and public health planning.
 
-**Motivación**
+📌 Originally built for a technical screening and later adapted into a portfolio project..
 
-Elegí este conjunto de datos porque es relevante para mi formación como ingeniero químico especializada en control de calidad. Predecir la calidad del aire es una gran oportunidad para mostrar mis habilidades en ingeniería aplicada a la ciencia de datos, especialmente en el ámbito del control de calidad para diferentes industrias.
+## 🎯 Goal
 
-## Tabla de contenidos
+Build a robust LSTM model to forecast NO₂ concentrations, helping to predict air quality trends. The two requirements for this project were: series must be non-seasonal, and the predictions must rely solely on historical data, with no external variables. The project emphasizes data cleaning, feature exploration, and model training to deliver reliable predictions that support informed decisions on pollution control and public health.
 
-- [Contenido del repositorio](#contenido-del-repositorio)
-- [Estructura del notebook](#estructura-del-notebook)
-- [Dependencias](#dependencias)
-- [Instalar dependencias](#instalar)
-- [Como ejecutar el projecto](#como-ejecutar-el-proyecto)
-- [Documentacion](#documentación)
-- [Dataset](#dataset)
-- [Modelado](#modelado)
-- [Resultados](#resultados)
-
-## Contenido del repositorio
+## 🗃️ Repository Structure
 
 ```plaintext
-VHC-TestDataScience-2/
+Air-quality-forecasting/
 │
-├── data/                               # Conjunto de datos
-│   ├── raw/                            # Datos originales
-│   ├── processed/                      # Datos limpios
-
-├── docs/                               # Documentacion
-│   ├── index.md                        # Indice
-|   ├── data-cleaning.md                # Limpieza
-|   ├── data-exploration                # Exploracion
-|   ├── forecasting.md                  # Predicciones
-|   ├── modeling.md                     # Modelado
-|   ├── pre-processing.md               # Preprocesamiento
-|   ├── results.md                      # Resultados
-|   ├── sesonality.md                   # Estacionalidad
+├── data/                               # Dataset
+│   ├── raw/                            # Raw data
+│   └── processed/                      # Processed data
 │
-├── models/                             # Modelos entrenados
-│   ├── LSTM-model-air-quality.keras    # Modelo guardado en formato keras
+├── figures/                            # Visualizations
+│   ├── correlation-matrix.png        
+│   └── lstm-residual-distribution.png  
 │
-├── notebooks/                          # Jupyter notebooks
-│   ├── VHC-TestDataScience-2.ipynb     # Proyecto completo de inicio a fin
-│   └── VHC-TestDataScience-2.html      # Proyecto completo en formato HTML
+├── models/                             # Trained models
+│   └── LSTM-model-air-quality.keras    # Saved LSTM model in Keras format
 │
-├── results/                            # Resultados del proyecto
-│   ├── figures/                        # Gráficas generadas
-│   └── model_results.txt               # Resultados del modelo
+├── notebooks/                          # Jupyter Notebooks
+│   ├── setup_path.py                   # Path setup
+│   └── air-quality-forecasting.ipynb   # End-to-end project notebook
 │
-├── requirements.txt                    # Dependencias del proyecto
-└── README.md                           # Documentación del proyecto
-└── mkdocs.yml                          # Documentación del proyecto en mkdocs
+├── results/                            # Model output
+│   └── metrics                         # Model metrics
+│       └── lstm_evaluation_metrics.txt
+│   └── predictions                     # Model predictions
+│       └── forecasted-no2-values.txt
+│
+├── scr/                                # Config files
+│   └── config.py                       
+│
+├── requirements.txt                    # Required dependencies
+└── README.md                           # Project documentation
 ```
 
-## Estructura del notebook
+## 📘 Project Overview
 
-1. **Introducción**: descripción del problema, motivación y objetivo del proyecto.
-2. **Dataset**: descripción del conjunto de datos.
-2. **Carga de Datos**: importación y exploración inicial del conjunto de datos.
-3. **Limpieza de los datos**: limpieza y preprocesado inicial de los datos.
-4. **Estacionalidad**: comprobación de la no-estacionalidad de la serie temporal.
-5. **Análisis exploratorio**: exploración de la variable objetivo y las características.
-6. **Preprocesado**: procesamiento de los datos antes del modelado.
-7. **Modelado**: construcción de la red neuronal recurrente.
-8. **Predicciones**: obtener las predicciones para los siguientes 100 ciclos.
+- **Introduction** – This project uses LSTM to forecast NO₂ concentration levels, aiming to provide insights for pollution control and public health.
+- **Dataset** – Hourly air quality data with NO₂ and other environmental variables from the UCI Machine Learning Repository.
+- **Data Cleaning** – Handled missing values, removed redundant features, and deseasonalized the time series for modeling.
+- **Exploratory Data Analysis** – Investigated feature distributions and correlations to understand key patterns in air quality data.
+- **Feature Engineering** – Created lag-based features and selected important variables based on correlation analysis.
+- **Preprocessing** – Normalized and deseasonalized data to ensure stationarity for LSTM modeling.
+- **Modeling** – Built and trained an LSTM model to capture temporal dependencies in the NO₂ time series.
+- **LSTM Optimization** – Tuned hyperparameters and applied early stopping to prevent overfitting.
+- **Forecasting** – Generated 100-step predictions of NO₂ concentration with the trained LSTM model.
+- **Conclusions** – The model demonstrated strong forecasting accuracy, providing actionable insights for air quality management.
 
-9. **Conclusiones**: Resumen del proyecto y los resultados obtenidos.
+## ⚙️ Dependencies
 
-## Dependencias
+This project requires the following Python libraries:
 
-Todas las dependencias necesarias para este proyecto están listadas en el fichero **requirements.txt**, entre las que se encuentran: 
-
-- Python
-- Jupyter Notebooks
-- Pandas
-- NumPy
-- Tensorflow
-- Matplotlib
-- Seaborn
-
-## Instalar dependencias
-
-Para ejecutar este proyecto, asegúrate de tener instaladas las siguientes librerías de Python:
-
-```{shell}
+```bash
 pip install -r requirements.txt
 ```
+- **Python**
+- **Jupyter Notebooks**
+- **Pandas**
+- **NumPy**
+- **TensorFlow**
+- **Matplotlib**
+- **Seaborn**
 
-## Como ejecutar el proyecto
+## ▶️ How to Run the Project
 
-1. Clona este repositorio:
-   ```{shell}
-   git clone https://github.com/herrerovir/VHC-TestDataScience-2.git
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/herrerovir/Air-quality-forecasting.git
    ```
-2. Navega al directorio del proyecto:
-   ```{shell}
-   cd VHC-TestDataScience-2
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd Air-quality-forecasting
    ```
-3. Abre el notebook:
-   ```{shell}
+
+3. Install the required dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Open the Jupyter Notebook to run the project:
+
+   ```bash
    jupyter notebook
+   ```
 
-## Documentacion
+5. Follow the steps in the notebook to load the dataset, preprocess it, train the model, and make predictions.
 
-Toda la documentación del proyecto en mkdocs se encuentra alojada en la siguiente dirección [documentación](https://herrerovir.github.io/VHC-TestDataScience-2/)
+## 💾 Dataset
 
-## Dataset
+The dataset used for this project comes from the UCI Machine Learning Repository [here](https://archive.ics.uci.edu/dataset/360/air+quality). It contains 9471 entries and 16 columns, with hourly measurements of various air quality parameters, including NO₂, CO, benzene (C₆H₆), and others. The focus of this project is on forecasting the NO₂ concentration over time.
 
-El conjunto de datos utilizado en este proyecto se obtuvo del UCI Machine Learning Repository [here](https://archive.ics.uci.edu/dataset/360/air+quality). Este dataset consiste en 9471 entradas y 16 columnas. 
+## 🌱 Seasonality Check
 
-## Modelado
+As part of the project requirements, the time series data needed to be non-seasonal, meaning it should not contain any repeating patterns over time. To ensure this, we first performed a **Seasonal Decomposition** using the `additive decomposition` method to separate the time series into three components: **trend**, **seasonal**, and **residual**.
 
-El modelo elegido para este proyecto fue una red neuronal recurrente, en concreto LSTM (Long Short-Term Memory). Lo interesante de la LSTM es que está hecha para aprender de datos en secuencia, lo que la hace perfecta para predecir la calidad del aire. Por tanto, en este proyecto se logró construir un modelo sólido que mostró métricas de evaluación muy buenas y una alta puntuación R², lo que indica un rendimiento efectivo. Por último, se realizaron predicciones para los próximos 100 ciclos sin utilizar variables de regresión, tal como se había solicitado en el ejercicio.
+The decomposition revealed strong daily (24-hour) and weekly (168-hour) seasonal patterns in the NO₂ concentrations, indicating that air quality fluctuates regularly within these time frames.
 
-## Resultados
+Despite the **Augmented Dickey-Fuller (ADF) test** indicating that the series was stationary, the decomposition highlighted the presence of seasonality. To resolve this, we deseasonalized the data by removing these seasonal components, leaving only the underlying trends for modeling.
 
-A continuación se muestran las gráficas que recogen y muestran las metricas y resultados del modelo xgboost:
+After deseasonalizing, the ADF test was re-applied to confirm that the data was stationary, ensuring that the LSTM model could effectively capture the trends without being influenced by seasonal fluctuations.
 
-**Pérdida del modelo a través de las épocas**
+## 🤖 LSTM Model Evaluation & Results
 
-![LSTM-training-validation-loss-graph](https://github.com/user-attachments/assets/2d04ad70-60b4-487a-893b-163726c69513)
+* The LSTM model achieved a strong R² score of 0.77, showing it explains 77% of the variance in NO₂ concentration. This demonstrates the model's effectiveness in capturing the underlying trends.
+* The residuals showed no clear bias or patterns, confirming that the model is well-calibrated and the errors are random.
 
-**Predicciones vs valores reales**
+## 🔮 Forecasting
 
-![LSTM-prediction-vs-real-values-plot](https://github.com/user-attachments/assets/5b226064-1ea5-45f5-bada-bf119e318161)
+To forecast future NO₂ concentrations, the trained LSTM model predicted the next 100 time steps based only on the historical data. Although no external features were used, the model generated smooth, realistic predictions. The forecast followed a clear downward trend, with NO₂ concentrations declining from 142.7 µg/m³ to around 124 µg/m³ over the forecast horizon. This aligns with expectations of gradual improvement in air quality.
 
-**Residuos**
+## 📈 Results
 
-![LSTM-residues-graph](https://github.com/user-attachments/assets/fd18386f-fc2f-4399-b4b6-1a16448a902c)
-
-**Histograma de residuos**
-
-![LSTM-residues-histogram](https://github.com/user-attachments/assets/34c8f10f-9705-402f-8baf-82426553ad2c)
-
+The final LSTM model showed excellent performance in predicting NO₂ concentrations. With an R² score of 0.77 and well-calibrated residuals, the model accurately captured the underlying trends in the data. Forecasts for future air quality demonstrated consistent, realistic behavior, proving the model’s reliability for short-term predictions. Overall, this model provides actionable insights for pollution control and public health planning.
