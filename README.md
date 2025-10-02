@@ -121,12 +121,11 @@ The model is a univariate LSTM built using Keras. It takes overlapping sliding w
 
 Below is a summary of the model’s evaluation metrics:
 
-| Metric        | Value |
-| ------------- | ----- |
-| R² Score      | 0.77  |
-| MAE (µg/m³)   | 5.29  |
-| RMSE (µg/m³)  | 6.41  |
-| Residual Bias | ≈ 0   |
+| Metric        | Value  |
+| ------------- | ------ |
+| R² Score      | 0.77   |
+| MAE (µg/m³)   | 14.46  |
+| RMSE (µg/m³)  | 377.88 |
 
 The residuals showed no consistent pattern, confirming that the model errors are random and unbiased.
 
