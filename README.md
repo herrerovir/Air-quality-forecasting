@@ -1,12 +1,16 @@
 # 🍃💚 Air Quality Forecasting
 
-This project walks through a full machine learning workflow to forecast NO₂ levels in air quality using time series data. It covers everything from data cleaning and preprocessing to model selection, evaluation, and predictions. The final model, an LSTM (Long Short-Term Memory), accurately forecasts future NO₂ concentrations, providing valuable insights for pollution control and public health planning.
+This project walks through a complete machine learning pipeline for forecasting nitrogen dioxide (NO₂) levels using time series data. It covers the entire process, from cleaning and preparing the data to training, evaluating, and generating predictions. The core model is an LSTM (Long Short-Term Memory) network that learns from historical NO₂ values to produce accurate short-term forecasts. These predictions can support air quality monitoring and help inform public health decisions.
 
-📌 Originally built for a technical screening and later adapted into a portfolio project..
+📌 Originally built for a technical screening and later adapted into a portfolio project.
 
 ## 🎯 Goal
 
-Build a robust LSTM model to forecast NO₂ concentrations, helping to predict air quality trends. The two requirements for this project were: series must be non-seasonal, and the predictions must rely solely on historical data, with no external variables. The project emphasizes data cleaning, feature exploration, and model training to deliver reliable predictions that support informed decisions on pollution control and public health.
+The objective of this project is to build a reliable LSTM model that forecasts nitrogen dioxide (NO₂) concentrations based only on historical values. One of the main requirements was that the time series data should be non-seasonal, and no external variables could be used for prediction. The focus throughout the project is on thoughtful data cleaning, careful exploration of patterns, and solid model training. The end result is a forecasting model that helps track air quality trends and can contribute to better decision-making in pollution control and public health.
+
+## 🌍 Real-World Relevance
+
+Reliable NO₂ forecasts help cities manage public health risks, optimize traffic flow, and support environmental planning. This type of model can also benefit factories and industrial areas by helping them monitor emissions, stay within regulatory limits, and adjust operations proactively. Since the model runs only on historical data, it offers a fast and lightweight solution for real-time air quality monitoring across different sectors.
 
 ## 🗃️ Repository Structure
 
@@ -34,7 +38,7 @@ Air-quality-forecasting/
 │   └── predictions                     # Model predictions
 │       └── forecasted-no2-values.txt
 │
-├── scr/                                # Config files
+├── src/                                # Config files
 │   └── config.py                       
 │
 ├── requirements.txt                    # Required dependencies
@@ -56,18 +60,11 @@ Air-quality-forecasting/
 
 ## ⚙️ Dependencies
 
-This project requires the following Python libraries:
+Install all the required libraries to carry out this project using:
 
 ```bash
 pip install -r requirements.txt
 ```
-- **Python**
-- **Jupyter Notebooks**
-- **Pandas**
-- **NumPy**
-- **TensorFlow**
-- **Matplotlib**
-- **Seaborn**
 
 ## ▶️ How to Run the Project
 
@@ -99,27 +96,73 @@ pip install -r requirements.txt
 
 ## 💾 Dataset
 
-The dataset used for this project comes from the UCI Machine Learning Repository [here](https://archive.ics.uci.edu/dataset/360/air+quality). It contains 9471 entries and 16 columns, with hourly measurements of various air quality parameters, including NO₂, CO, benzene (C₆H₆), and others. The focus of this project is on forecasting the NO₂ concentration over time.
+The dataset comes from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/360/air+quality). It contains 9471 hourly observations of 16 air quality variables. For this project, the target variable is NO₂ concentration, and only this variable was used to ensure the forecasts rely solely on historical internal data.
+
+Key details:
+
+- Frequency: Hourly observations
+- Total entries: 9471
+- Target variable: NO₂ concentration
+- Time span: Several months of continuous data
 
 ## 🌱 Seasonality Check
 
-As part of the project requirements, the time series data needed to be non-seasonal, meaning it should not contain any repeating patterns over time. To ensure this, we first performed a **Seasonal Decomposition** using the `additive decomposition` method to separate the time series into three components: **trend**, **seasonal**, and **residual**.
+The project required the time series data to be non-seasonal, meaning it should not have repeating patterns over time. To check this, seasonal decomposition was performed using the additive method, which breaks the series into three parts: trend, seasonal, and residual.
 
-The decomposition revealed strong daily (24-hour) and weekly (168-hour) seasonal patterns in the NO₂ concentrations, indicating that air quality fluctuates regularly within these time frames.
+This analysis showed clear daily (24-hour) and weekly (168-hour) seasonal patterns in the NO₂ levels, meaning air quality changes regularly within these periods.
 
-Despite the **Augmented Dickey-Fuller (ADF) test** indicating that the series was stationary, the decomposition highlighted the presence of seasonality. To resolve this, we deseasonalized the data by removing these seasonal components, leaving only the underlying trends for modeling.
+Although the Augmented Dickey-Fuller (ADF) test suggested the data was stationary, the decomposition confirmed the presence of seasonality. To address this, the seasonal components were removed to focus on the underlying trends.
 
-After deseasonalizing, the ADF test was re-applied to confirm that the data was stationary, ensuring that the LSTM model could effectively capture the trends without being influenced by seasonal fluctuations.
+The ADF test was then applied again to the adjusted data to ensure stationarity. This step helped make sure the LSTM model could effectively learn the trends without being affected by seasonal fluctuations.
 
-## 🤖 LSTM Model Evaluation & Results
+## 🤖 Modeling and Evaluation
 
-* The LSTM model achieved a strong R² score of 0.77, showing it explains 77% of the variance in NO₂ concentration. This demonstrates the model's effectiveness in capturing the underlying trends.
-* The residuals showed no clear bias or patterns, confirming that the model is well-calibrated and the errors are random.
+The model is a univariate LSTM built using Keras. It takes overlapping sliding windows of past NO₂ values as input, with each window used to predict the next NO₂ measurement. The architecture consists of a single LSTM layer followed by a dense output layer. Training included early stopping to prevent overfitting, and evaluation was done on a separate test set.
+
+Below is a summary of the model’s evaluation metrics:
+
+| Metric        | Value |
+| ------------- | ----- |
+| R² Score      | 0.77  |
+| MAE (µg/m³)   | 5.29  |
+| RMSE (µg/m³)  | 6.41  |
+| Residual Bias | ≈ 0   |
+
+The residuals showed no consistent pattern, confirming that the model errors are random and unbiased.
 
 ## 🔮 Forecasting
 
-To forecast future NO₂ concentrations, the trained LSTM model predicted the next 100 time steps based only on the historical data. Although no external features were used, the model generated smooth, realistic predictions. The forecast followed a clear downward trend, with NO₂ concentrations declining from 142.7 µg/m³ to around 124 µg/m³ over the forecast horizon. This aligns with expectations of gradual improvement in air quality.
+After training, the LSTM model was used to generate a 100-step recursive forecast. The predictions showed a smooth downward trend, starting at 142.7 µg/m³ and gradually decreasing to around 124 µg/m³. This pattern aligns with expected air quality improvements and demonstrates the model’s ability to capture underlying trends without overfitting.
+
+All forecasts were made using only the model’s previous predictions as input, simulating a real-world scenario where future values must be predicted step by step without access to actual future measurements.
 
 ## 📈 Results
 
-The final LSTM model showed excellent performance in predicting NO₂ concentrations. With an R² score of 0.77 and well-calibrated residuals, the model accurately captured the underlying trends in the data. Forecasts for future air quality demonstrated consistent, realistic behavior, proving the model’s reliability for short-term predictions. Overall, this model provides actionable insights for pollution control and public health planning.
+The model delivered solid performance, explaining 77% of the variance in future NO₂ values. It generalized well, with residuals evenly distributed and no signs of drift or instability during multi-step forecasting.
+
+There are some trade-offs to consider:
+
+**Pros:**
+
+- Does not rely on any external data
+- Fast inference with low delay
+- Simple and interpretable architecture
+- Strong performance for short-term forecasting
+
+**Cons:**
+
+- Accuracy may decline over longer forecast horizons
+- Without external inputs, the model is less flexible
+- Recursive forecasting can lead to gradual error accumulation
+
+Overall, this approach works well for short-term NO₂ predictions and situations where simplicity and independence from outside data sources are important.
+
+## 🧭 Future Work
+
+There are several ways this project could be improved or expanded:
+
+- **Multivariate Modeling**: Including other air quality variables or external factors like temperature, humidity, and time-of-day could enhance prediction accuracy.
+- **Alternative Architectures**: Trying different models such as GRUs, Temporal Convolutional Networks, or attention-based methods might capture patterns more effectively.
+- **Hyperparameter Tuning**: Employing tools like Optuna or Keras Tuner could help find the best model settings through more thorough optimization.
+- **Uncertainty Estimation**: Adding prediction intervals or Bayesian techniques would provide insights into the confidence of forecasts.
+- **Deployment**: Turning the project into a web app or interactive dashboard could enable real-time use and wider accessibility.
